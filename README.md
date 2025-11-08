@@ -2,6 +2,14 @@
 
 A web application for browsing and solving over 12,500 real competition mathematics problems from the MATH dataset.
 
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/flask-3.0.0-green.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+## Demo
+
+![Demo](https://i.imgur.com/5sZnUiT.gif)
+
 ## Features
 
 - Access to 12,500+ authentic competition problems
@@ -88,11 +96,3 @@ To render Asymptote diagrams locally:
 2. Install [Ghostscript](https://ghostscript.com/releases/gsdnld.html)
 3. Copy diagram code from the web interface
 4. Run `python render_diagram.py`
-
-## License
-
-MIT
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss proposed changes.

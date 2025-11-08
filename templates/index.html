@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 MATH Competition Problems</title>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: {'[+]': ['ams', 'newcommand', 'configmacros', 'textmacros', 'cases']},
+                macros: {
+                    R: "\\mathbb{R}",
+                    N: "\\mathbb{N}",
+                    Z: "\\mathbb{Z}",
+                    Q: "\\mathbb{Q}",
+                    C: "\\mathbb{C}"
+                }
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            svg: {
+                fontCache: 'global',
+                scale: 1.15,
+                minScale: 0.5,
+                matchFontHeight: true
+            },
+            startup: {
+                ready: () => {
+                    console.log('✅ MathJax carregado!');
+                    MathJax.startup.defaultReady();
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" id="MathJax-script" async></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        h1 {
+            font-size: 4em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.25);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .category-selector {
+            margin-bottom: 30px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 1.2em;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.95);
+            cursor: pointer;
+            font-weight: 600;
+            color: #2c5364;
+            transition: all 0.3s;
+        }
+        
+        select:hover {
+            border-color: white;
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+        
+        .problem-container {
+            background: white;
+            color: #1a1a1a;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 400px;
+        }
+        
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+        
+        .badge {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .level-1 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
+        .level-2 { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .level-3 { background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%); color: white; }
+        .level-4 { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); color: white; }
+        .level-5 { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); color: white; }
+        
+        .category-badge {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        
+        .problem-text {
+            font-size: 1.5em;
+            line-height: 2.2;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-family: 'Georgia', serif;
+        }
+        
+        .problem-text mjx-container,
+        .solution-text mjx-container {
+            margin: 12px 6px !important;
+        }
+        
+        .problem-text mjx-container[display="true"],
+        .solution-text mjx-container[display="true"] {
+            margin: 25px 0 !important;
+            display: block !important;
+        }
+        
+        mjx-math {
+            color: #2c3e50 !important;
+            font-size: 1.15em !important;
+        }
+        
+        mjx-container[display="true"] mjx-math {
+            font-size: 1.4em !important;
+        }
+        
+        /* DIAGRAMAS - PLACEHOLDER ELEGANTE */
+        .diagram-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .diagram-placeholder-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .diagram-placeholder-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .diagram-placeholder-subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .diagram-code-toggle {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .diagram-code-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .diagram-code-content {
+            display: none;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            position: relative;
+        }
+        
+        .diagram-code-content.show {
+            display: block;
+        }
+        
+        .diagram-code-content pre {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #a8e6cf;
+            line-height: 1.6;
+        }
+        
+        .copy-code-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .copy-code-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .solution-container {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 25px;
+            display: none;
+            border-left: 6px solid #4caf50;
+            box-shadow: 0 5px 20px rgba(76,175,80,0.2);
+        }
+        
+        .solution-header {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .solution-text {
+            font-size: 1.3em;
+            line-height: 2.2;
+            color: #1b5e20;
+            white-space: pre-wrap;
+            font-family: 'Georgia', serif;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        button {
+            padding: 22px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .btn-next { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+        
+        .btn-solution { 
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+        
+        .btn-copy { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .placeholder {
+            text-align: center;
+            color: #999;
+            font-size: 1.5em;
+            padding: 80px 20px;
+            font-style: italic;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.5em;
+            color: #1e3c72;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .spinner {
+            display: inline-block;
+            margin-right: 10px;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .problem-container {
+                padding: 30px 20px;
+            }
+            
+            .problem-text {
+                font-size: 1.2em;
+            }
+            
+            .solution-text {
+                font-size: 1.1em;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏆 MATH Competition</h1>
+            <div class="subtitle">12,500+ Real Problems - Perfect LaTeX Rendering</div>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalProblems">12,500</span>
+                <span class="stat-label">Real Problems</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="solvedCount">0</span>
+                <span class="stat-label">Attempted</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="currentLevel">-</span>
+                <span class="stat-label">Current Level</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="currentCategory">-</span>
+                <span class="stat-label">Category</span>
+            </div>
+        </div>
+        
+        <div class="category-selector">
+            <select id="categorySelect">
+                <option value="all">🎲 All Categories (Random)</option>
+                <option value="Prealgebra">➕ Prealgebra</option>
+                <option value="Algebra">🔢 Algebra</option>
+                <option value="Intermediate Algebra">🔢 Intermediate Algebra</option>
+                <option value="Number Theory">🔢 Number Theory</option>
+                <option value="Counting & Probability">🎲 Counting & Probability</option>
+                <option value="Geometry">📐 Geometry</option>
+                <option value="Precalculus">📈 Precalculus</option>
+            </select>
+        </div>
+        
+        <div class="problem-container">
+            <div id="problemContent">
+                <div class="placeholder">
+                    🚀 Click "Next Problem" to start
+                </div>
+            </div>
+            <div class="solution-container" id="solutionContainer">
+                <div class="solution-header">
+                    ✅ Official Solution
+                </div>
+                <div class="solution-text" id="solutionText"></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-next" onclick="nextProblem()">
+                ➡️ Next Problem
+            </button>
+            <button class="btn-solution" onclick="toggleSolution()" id="solutionBtn" disabled>
+                ✅ Show Solution
+            </button>
+            <button class="btn-copy" onclick="copyProblem()" id="copyBtn" disabled>
+                📋 Copy
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentProblem = null;
+        let solvedCount = 0;
+        let diagramCounter = 0;
+        
+        // Função para escapar HTML
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
+        // PROCESSA CONTEÚDO COM PLACEHOLDERS ELEGANTES
+        function processContent(text) {
+            if (!text) return '';
+            
+            const asyRegex = /\[asy\]([\s\S]*?)\[\/asy\]/g;
+            let processed = text;
+            let match;
+            
+            while ((match = asyRegex.exec(text)) !== null) {
+                const code = match[1].trim();
+                const id = `diagram-${diagramCounter++}`;
+                
+                const placeholder = `
+                    <div class="diagram-placeholder">
+                        <span class="diagram-placeholder-icon">📐</span>
+                        <div class="diagram-placeholder-title">Geometric Diagram</div>
+                        <div class="diagram-placeholder-subtitle">This problem contains a visual diagram</div>
+                        <button class="diagram-code-toggle" onclick="toggleDiagramCode('${id}')">
+                            👁️ View Asymptote Code
+                        </button>
+                        <div id="${id}" class="diagram-code-content">
+                            <pre>${escapeHtml(code)}</pre>
+                            <button class="copy-code-btn" onclick="copyDiagramCode('${id}-code')">
+                                📋 Copy Code
+                            </button>
+                            <textarea id="${id}-code" style="position: absolute; left: -9999px;">${code}</textarea>
+                        </div>
+                    </div>
+                `;
+                
+                processed = processed.replace(match[0], placeholder);
+            }
+            
+            return processed;
+        }
+        
+        // Toggle código do diagrama
+        function toggleDiagramCode(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.classList.toggle('show');
+                const btn = element.previousElementSibling;
+                if (element.classList.contains('show')) {
+                    btn.textContent = '👁️ Hide Code';
+                } else {
+                    btn.textContent = '👁️ View Asymptote Code';
+                }
+            }
+        }
+        
+        // Copiar código do diagrama
+        function copyDiagramCode(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            if (textarea) {
+                textarea.select();
+                document.execCommand('copy');
+                
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.style.background = 'rgba(76, 175, 80, 0.5)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'rgba(255,255,255,0.2)';
+                }, 2000);
+            }
+        }
+        
+        async function nextProblem() {
+            const category = document.getElementById('categorySelect').value;
+            const btn = document.querySelector('.btn-next');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner">⏳</span> Loading...';
+            
+            document.getElementById('problemContent').innerHTML = `
+                <div class="loading">
+                    <span class="spinner">⏳</span> Loading competition problem...
+                </div>
+            `;
+            
+            document.getElementById('solutionContainer').style.display = 'none';
+            
+            try {
+                const response = await fetch(`/api/question/${category}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentProblem = data;
+                    
+                    // Processa problema e solução
+                    const processedProblem = processContent(data.problem);
+                    const processedSolution = processContent(data.solution);
+                    
+                    document.getElementById('problemContent').innerHTML = `
+                        <div class="problem-header">
+                            <span class="badge category-badge">${data.type}</span>
+                            <span class="badge level-${data.level}">${data.level}</span>
+                        </div>
+                        <div class="problem-text tex2jax_process">${processedProblem}</div>
+                    `;
+                    
+                    document.getElementById('solutionText').innerHTML = processedSolution;
+                    
+                    document.getElementById('currentLevel').textContent = data.level;
+                    document.getElementById('currentCategory').textContent = data.type.split(' ')[0];
+                    
+                    document.getElementById('solutionBtn').disabled = false;
+                    document.getElementById('solutionBtn').textContent = '✅ Show Solution';
+                    document.getElementById('copyBtn').disabled = false;
+                    
+                    solvedCount++;
+                    document.getElementById('solvedCount').textContent = solvedCount;
+                    
+                    // Renderiza LaTeX
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        await MathJax.typesetPromise([document.getElementById('problemContent')]);
+                        console.log('✅ LaTeX renderizado!');
+                    }
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                document.getElementById('problemContent').innerHTML = `
+                    <div class="placeholder" style="color: #dc3545;">
+                        ❌ Error: ${escapeHtml(error.message)}
+                        <br><br>
+                        <small>Try refreshing or selecting another category</small>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '➡️ Next Problem';
+            }
+        }
+        
+        async function toggleSolution() {
+            const container = document.getElementById('solutionContainer');
+            const btn = document.getElementById('solutionBtn');
+            
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                btn.textContent = '❌ Hide Solution';
+                
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    await MathJax.typesetPromise([container]);
+                    console.log('✅ LaTeX da solução renderizado!');
+                }
+                
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                container.style.display = 'none';
+                btn.textContent = '✅ Show Solution';
+            }
+        }
+        
+        function copyProblem() {
+            if (!currentProblem) return;
+            
+            let textToCopy = currentProblem.problem.replace(/\[asy\][\s\S]*?\[\/asy\]/g, '[Diagram present]');
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                btn.style.background = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                }, 2000);
+            });
+        }
+        
+        // Atalhos de teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                return;
+            }
+            
+            if (e.key === 'n' || e.key === 'N') nextProblem();
+            if (e.key === 's' || e.key === 'S') {
+                if (!document.getElementById('solutionBtn').disabled) toggleSolution();
+            }
+            if (e.key === 'c' || e.key === 'C') {
+                if (!document.getElementById('copyBtn').disabled) copyProblem();
+            }
+        });
+        
+        // Carrega stats
+        fetch('/api/stats')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('totalProblems').textContent = data.total.toLocaleString();
+                console.log('📊 Stats:', data);
+            })
+            .catch(err => console.error('Erro:', err));
+        
+        console.log(`
+╔═══════════════════════════════════════╗
+║   🏆 MATH Competition Viewer          ║
+║   ✅ 100% Error-Free Mode             ║
+╠═══════════════════════════════════════╣
+║  Keyboard Shortcuts:                  ║
+║  • N - Next Problem                   ║
+║  • S - Show/Hide Solution             ║
+║  • C - Copy Problem                   ║
+╚═══════════════════════════════════════╝
+        `);
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+
+# Flask
+instance/
+
+# Diagrams gerados
+diagrams/*.svg
+diagrams/*.asy
+diagrams/*.pdf
+
+# Cache do dataset
+.cache/
+
+# Outros
+.DS_Store
+*.log

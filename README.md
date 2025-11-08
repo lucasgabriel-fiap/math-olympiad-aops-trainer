@@ -6,9 +6,7 @@ A web application for browsing and solving over 12,500 real competition mathemat
 ![Flask](https://img.shields.io/badge/flask-3.0.0-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## Demo
-
-![Demo](https://i.imgur.com/5sZnUiT.gif)
+![Demo](math.gif)
 
 ## Features
 
